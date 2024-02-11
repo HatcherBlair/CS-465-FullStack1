@@ -1,10 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
+// Trips
 const tripsController = require("../controllers/trips");
-
 router.route("/trips").get(tripsController.tripsList);
-
 router.route("/trips/:tripCode").get(tripsController.tripsFindCode);
+
+// Rooms
+const roomsController = require("../controllers/rooms");
+router.route("/rooms").get(roomsController.roomsList);
+
+// Meals
+const mealsController = require("../controllers/meals");
+router.route("/meals").get(mealsController.mealsList);
 
 module.exports = router;
