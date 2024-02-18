@@ -43,9 +43,19 @@ export class TripDataService {
 
   // Gets a single trip from DB, used for editing a trip
   public getTrip(tripCode: string): Promise<Trip> {
-    console.log("Inside TripDataService#getTrip(tripCode)");
+    console.log(`Inside TripDataService#getTrip${tripCode}`);
     return this.http
       .get(this.tripUrl + tripCode)
+      .toPromise()
+      .then((response) => response.json() as Trip)
+      .catch(this.handleError);
+  }
+
+  // Removes a single trip from DB
+  public deleteTrip(tripCode: string): Promise<Trip> {
+    console.log(`Inside TripDataService#deleteTrip(${tripCode})`);
+    return this.http
+      .delete(this.tripUrl + tripCode)
       .toPromise()
       .then((response) => response.json() as Trip)
       .catch(this.handleError);

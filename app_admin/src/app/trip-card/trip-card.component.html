@@ -13,7 +13,10 @@
     </p>
     <p class="card-text" [innerHTML]="trip.description"></p>
   </div>
-  <div>
+  <div class="d-flex justify-content-between">
     <button (click)="editTrip(trip)" class="btn btn-info">Edit</button>
+    <button class="btn btn-danger" (click)="openConfirmationDialog(trip)">
+      Delete
+    </button>
   </div>
 </div>

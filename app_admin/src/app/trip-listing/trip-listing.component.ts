@@ -19,11 +19,18 @@ export class TripListingComponent implements OnInit {
     private router: Router
   ) {}
 
+  // Navigates to add-trip
   private addTrip(): void {
     console.log("Inside TripListingComponent#addTrip");
     this.router.navigate(["add-trip"]);
   }
 
+  // When a trip is deleted update the trips
+  private onTripDeleted(): void {
+    this.getTrips();
+  }
+
+  // Gets the list of trips from DB
   private getTrips(): void {
     console.log("Inside TripListingComponent#getTrips");
     this.message = "Searching for trips";
