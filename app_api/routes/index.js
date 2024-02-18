@@ -11,7 +11,8 @@ router
 router
   .route("/trips/:tripCode")
   .get(tripsController.tripsFindCode)
-  .put(tripsController.tripsUpdateTrip);
+  .put(tripsController.tripsUpdateTrip)
+  .delete(tripsController.tripsDeleteTrip);
 
 // Rooms
 const roomsController = require("../controllers/rooms");

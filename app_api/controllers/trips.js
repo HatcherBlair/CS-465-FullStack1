@@ -86,4 +86,32 @@ const tripsUpdateTrip = async (req, res) => {
     });
 };
 
-module.exports = { tripsList, tripsFindCode, tripsAddTrip, tripsUpdateTrip };
+// DELETE: /trips/tripCode - Removes a trip from the DB
+async function tripsDeleteTrip(req, res) {
+  console.log(req.body);
+  await model
+    .deleteOne({ code: req.params.tripCode })
+    .then((result) => {
+      if (!result.deletedCount)
+        return res
+          .status(404)
+          .send({ message: `Could not find document ${req.params.tripCode}` });
+
+      return res
+        .status(200)
+        .send({ message: `Deleted ${result.deletedCount} document` });
+    })
+    .catch((err) => {
+      return res
+        .status(404)
+        .send({ message: `Error deleting document ${err}` });
+    });
+}
+
+module.exports = {
+  tripsList,
+  tripsFindCode,
+  tripsAddTrip,
+  tripsUpdateTrip,
+  tripsDeleteTrip,
+};
