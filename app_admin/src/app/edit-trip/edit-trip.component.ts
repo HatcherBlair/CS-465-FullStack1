@@ -46,6 +46,21 @@ export class EditTripComponent implements OnInit {
 
     this.tripService.getTrip(tripCode).then((data) => {
       console.log(data);
+
+      // Get GMT datetime and convert to Date object
+      const oldDate = new Date(data[0].start);
+
+      // Adjust oldDate for timezone offset, convert it to a string, and remove the timezone information
+      const [newDate] = new Date(
+        oldDate.getTime() - oldDate.getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .split(".");
+
+      // Replace start time with new start time
+      data[0].start = newDate;
+
+      // Patch form
       this.editForm.patchValue(data[0]);
     });
   }

@@ -22,7 +22,7 @@ function renderRoomsList(req, res, responseBody) {
   });
 }
 
-/* GET Meals List View */
+/* GET Rooms List View */
 function roomsList(req, res) {
   const path = "/api/rooms";
   const requestOptions = {
