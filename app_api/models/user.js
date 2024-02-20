@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -16,24 +17,16 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.setPassword = (password) => {
-  this.salt = Crypto.randomBytes(16).toString("hex");
-  this.hash = Crypto.pbkdf2Sync(
-    password,
-    this.salt,
-    1000,
-    64,
-    "sha512"
-  ).toString("hex");
+  this.salt = crypto.randomBytes(16).toString("hex");
+  this.hash = crypto
+    .pbkdf2Sync(password, this.salt, 1000, 64, "sha512")
+    .toString("hex");
 };
 
 userSchema.methods.validPassword = (password) => {
-  let hash = Crypto.pbkdf2Sync(
-    password,
-    this.salt,
-    1000,
-    64,
-    "sha512"
-  ).toString("hex");
+  let hash = crypto
+    .pbkdf2Sync(password, this.salt, 1000, 64, "sha512")
+    .toString("hex");
   return this.hash === hash;
 };
 
@@ -52,4 +45,4 @@ userSchema.methods.generateJwt = () => {
   );
 };
 
-mongoose.model("users", userSchema);
+module.exports = mongoose.model("users", userSchema);

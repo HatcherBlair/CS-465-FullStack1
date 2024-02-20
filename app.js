@@ -5,6 +5,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
+const passport = require("passport");
+require("./app_api/config/passport");
 require("./app_api/models/db");
 
 // Router definitions
@@ -33,7 +35,7 @@ app.use("/api", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-Width, Content-Type, Accept"
+    "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   next();
@@ -44,6 +46,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "app_server", "views")));
+app.use(passport.initialize());
 
 // Presented in order of Nav bar
 app.use("/", indexRouter);
