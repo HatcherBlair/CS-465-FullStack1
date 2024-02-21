@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { Trip } from "../models/trip";
 import { ConfirmDeleteComponent } from "../confirm-delete/confirm-delete.component";
 import { TripDataService } from "../services/trip-data.service";
+import { AuthenticationService } from "../services/authentication";
 
 @Component({
   selector: "app-trip-card",
@@ -13,13 +14,19 @@ import { TripDataService } from "../services/trip-data.service";
 })
 export class TripCardComponent {
   @Input("trip") trip: any;
+  @Output() tripDeleted = new EventEmitter<void>();
+
   constructor(
     private router: Router,
     private tripService: TripDataService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthenticationService
   ) {}
 
-  @Output() tripDeleted = new EventEmitter<void>();
+  // Checks is there is a user logged in
+  public isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
   // Navigates to edit-trip screen
   private editTrip(trip: Trip): void {
