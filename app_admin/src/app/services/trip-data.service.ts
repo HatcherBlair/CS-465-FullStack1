@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { Http } from "@angular/http";
+import { Http, Headers } from "@angular/http";
 
 import { AuthResponse } from "../models/authresponse";
 import { BROWSER_STORAGE } from "../storage";
@@ -19,8 +19,14 @@ export class TripDataService {
   // Adds a trip to DB
   public addTrip(formData: Trip): Promise<Trip> {
     console.log("Inside TripDataService#addTrip");
+
+    // Get the saved token and add it to request
+    let headers = new Headers();
+    const token = this.storage.getItem("travlr-token");
+    headers.append("Authorization", `Bearer ${token}`);
+
     return this.http
-      .post(this.tripUrl, formData)
+      .post(this.tripUrl, formData, { headers: headers })
       .toPromise()
       .then((response) => response.json() as Trip[])
       .catch(this.handleError);
@@ -30,8 +36,14 @@ export class TripDataService {
   public updateTrip(formData: Trip): Promise<Trip> {
     console.log("Inside TripDataService#updateTrip");
     console.log(formData);
+
+    // Get the saved token and add it to request
+    let headers = new Headers();
+    const token = this.storage.getItem("travlr-token");
+    headers.append("Authorization", `Bearer ${token}`);
+
     return this.http
-      .put(this.tripUrl + formData.code, formData)
+      .put(this.tripUrl + formData.code, formData, { headers: headers })
       .toPromise()
       .then((respose) => respose.json() as Trip)
       .catch(this.handleError);
@@ -60,8 +72,14 @@ export class TripDataService {
   // Removes a single trip from DB
   public deleteTrip(tripCode: string): Promise<Trip> {
     console.log(`Inside TripDataService#deleteTrip(${tripCode})`);
+
+    // Get the saved token and add it to request
+    let headers = new Headers();
+    const token = this.storage.getItem("travlr-token");
+    headers.append("Authorization", `Bearer ${token}`);
+
     return this.http
-      .delete(this.tripUrl + tripCode)
+      .delete(this.tripUrl + tripCode, { headers: headers })
       .toPromise()
       .then((response) => response.json() as Trip)
       .catch(this.handleError);

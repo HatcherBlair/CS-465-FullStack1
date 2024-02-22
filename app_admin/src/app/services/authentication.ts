@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { BROWSER_STORAGE } from "../storage";
 import { User } from "../models/user";
 import { AuthResponse } from "../models/authresponse";
@@ -51,7 +51,7 @@ export class AuthenticationService {
     return false;
   }
 
-  // Gets the currently logegd in user
+  // Gets the currently logged in user
   public getCurrentUser(): User {
     if (this.isLoggedIn()) {
       const token: string = this.getToken();
