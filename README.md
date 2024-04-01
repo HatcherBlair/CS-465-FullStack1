@@ -18,7 +18,7 @@ The Angular page is built using Angular(duh) and Bootsrap. The application conta
 
 ## How to Install and Run
 
-1. Fork the Repo and clone into a local repository
+1. Fork the Repo and clone into a local directory
 2. Navigate to the base project directory and install dependencies
 
 ```Bash
