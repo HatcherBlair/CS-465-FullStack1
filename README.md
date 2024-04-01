@@ -44,9 +44,9 @@ npm install
 
 7. Run the command `ng serve` to start the server
 
-### The static website and API are available at localhost:3000\
+#### The static website and API are available at localhost:3000\
 
-### The Angular website is available at localhost:4200
+#### The Angular website is available at localhost:4200
 
 8. This project uses seedgoose to seed the database. To seed the database all you need to do is run:
 
