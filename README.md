@@ -22,7 +22,7 @@ The Angular page is built using Angular(duh) and Bootsrap. The application conta
 2. Navigate to the base project directory and install dependencies
 
 ```Bash
-npm install --save
+npm install
 ```
 
 3. Create the environment variables
@@ -36,7 +36,7 @@ npm install --save
 6. Install the dependencies for the Angular website by running:
 
 ```Bash
-npm install --save
+npm install
 ```
 
 7. Run the command `ng serve` to start the server
