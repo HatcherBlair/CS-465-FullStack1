@@ -27,10 +27,10 @@ npm install
 
 3. Create the environment variables
   * In the top-level directory make a new file `.env`
-..* The only required environment variable is the secret for JWT authentication `JWT_SECRET`
-..* You can make the secret whatever you want, for example: `JWT_SECRET=superdupersecret`
+  * The only required environment variable is the secret for JWT authentication `JWT_SECRET`
+  * You can make the secret whatever you want, for example: `JWT_SECRET=superdupersecret`
 5. You can now run the static website and the API using `npm start` or `npm run nodemon`. Nodemon will watch for changes and automatically restart the server if there is a change.
-..* NOTE: This project is configured to use a local MongoDB instance, if you want to use a remote MongoDB instance the URI is located in ./app_api/models/db.js
+  * NOTE: This project is configured to use a local MongoDB instance, if you want to use a remote MongoDB instance the URI is located in ./app_api/models/db.js
 
 6. Navigate to the app_admin directory
 7. Install the dependencies for the Angular website by running:
