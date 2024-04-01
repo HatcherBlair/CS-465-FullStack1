@@ -1,25 +1,45 @@
-# CS-465-FullStack1
+# CS-465-FullStack1 - Travlr Getaways
 
-# Architecture
-## Compare and contrast the types of front-end development you used in your full stack project, including Express HTML, JavaScript, and the single-page application (SPA).
-I don’t agree with calling HTML, JavaScript, and SPA’s types of front-end development, one is a templating language, one is a programming language, and one is an implementation of a web application. I am also unsure of why the prompt is Express HTML instead of Handlebars. 
-Handlebars templates are used in this project to render the customer facing webpage.  The templates pull data from the database to display information about the hotels, flights, cruises, and meal plans available to customers.  Express is used on the back end to render and deliver the Handlebars templates as well as handle routing and requests.  
-There is also very little JS on the front end of the application.  The consumer facing page is all static content and the routing is handled on the back end and the SPA admin dashboard is all written in TS.  The routers, controllers, and RESTful API are all written in JS, but that is part of the backend of the application.
-The SPA admin dashboard is an Angular SPA with bootstrap. This was all written in TS and is where most of the front-end development took place for this project.  The application contains a login screen and a page that displays a list of trips.  The user can edit, add, and delete trips from the database.  All the styling for the page was done using bootstrap.
-Two very different methods were used to develop the front-end of the admin page and the customer facing page.  The customer facing page was completed using handlebars templates and contains no JS logic on the front-end.  The admin page was built using Angular and uses TS to login and add, edit, and delete trips from the DB.
-## Why did the backend use a NoSQL MongoDB database?
-The largest reason that MongoDB was chosen is for the ease of storing JSON.  While it is possible to store data from a JSON document in all databases, Mongo natively stores JSON documents.  This made it incredibly fast and painless to seed the database and complete CRUD operations in JS.  Another reason that a NoSQL database was chosen is because of the flexibility when storing objects.  Because each ‘entry’ in the database is its own document you can have different fields for each object.  While that feature is not currently being used, there are several use cases for having different sets of fields when storing information about cruises, hotels, flights, and meal plans.
+## Description
 
-# Functionality
-## How is JSON different from JavaScript and how does JSON tie together the frontend and the backend development pieces?
-Comparing the differences between JS and JSON is like comparing an apple to a MacBook, they might both have the word apple, but they are completely different products.  JSON (JavaScript object notation) is a standard for storing objects in string format and JavaScript is a language.  When comparing JavaScript objects to JSON the key difference is that JSON cannot store functions natively.  If you feel the need to store a function in a JSON document, you can do some magic when parsing the JSON to make a function, but I would not recommend doing that.  When converting JSON back into JS objects, it will be parsed as generic objects instead of the original type of the object. For example, if you store a Date object in JSON you will need to create a new Date object when parsing that JSON data if you need access to any of the functions that Date includes.
-So, JSON is just a string version of an object, why is that useful when developing a web application? Because of the two static methods that come with JSON, parse and stringify.  This is how you convert between JS objects and JSON.  Parse creates a JS object from JSON and stringify creates a JSON document from a JS object.  The magic is that the keys that are stored in the JSON document are available as properties of the resulting object.  When using stringify, the given object is transformed into a series of key value pairs that can then be parsed to create an object again.  This makes JSON extremely useful when communicating between different services.  You can convert an object into a string, send it to another service or part of your application, and convert it back into an object on the other side you can recreate the original object. This also makes JSON great for storing data in a database.  Because of the ease of converting between native JS objects and JSON it is trivial to convert data going into a database to a string and data coming out into a JS object.  
-## Provide instances in the full stack process when you refactored code to improve functionality and efficiencies and name the benefits that come from reusable user interface (UI) components.
-Parts of the project were refactored several times throughout development.  Most of the refactoring related to data.  Initially all the content was hard coded into the HTML documents, then it was placed into JSON documents and rendered via handlebars, and finally it was stored in the Mongo database and fetched via the API.  The benefits this provides are flexibility and useability for the consumers.  The application is more flexible because content can be added and removed without any refactoring and the application is more useable because you don’t need web development knowledge to change the content on the page.
-There are not only benefits to reusable UI components but all code that can be reused.  When you can make content that can be reused it saves space and development time.  Instead of writing the same HTML footer/header or the same function several times you can write it once and use it in multiple places.  This is a huge benefit for development time, code testing, and, depending on the size of the application, file sizes.  The benefit to testing I think is one of the most important.  When you can reuse code in other areas of the program all the code that is being reused has presumably already been tested and does not need to be retested. 
-# Testing
-## Methods for request and retrieval necessitate various types of API testing of endpoints, in addition to the difficulties of testing with added layers of security. Explain your understanding of methods, endpoints, and security in a full stack application.
+### This repository contains 3 separate items, a static HTML customer facing website, a RESTful API, and an Angular SPA.
 
-# Reflection
-## How has this course helped you in reaching your professional goal? What skill have you learned, developed, or mastered in this course to help you become a more marketable candidate in your career field?
-Full stack development is where I see myself in the long term.  This course has helped me get closer to the goal of becoming a full stack developer.  Through this course I learned the basics of handlebars templating, Express, Angular, and TS.  I also gained more experience writing HTML, JS, working with MongoDB, and git.  I have spent a lot of time outside of school teaching myself full stack development and have been working with vanilla JS so far.  Dipping my toes into TS has got me excited to learn more TS because of all the benefits of a statically typed language.
+#### Static HTML Customer Facing Website
+
+The static website is built using Node, Express, and Handlebars. All of the related files are contained in the app_server directory and the website follows the MVC architecture.
+
+#### RESTful API
+
+The API is built using Node, Express, and MongoDB. All of the related files are contained in the app_api directory. The API serves data from the database to the static HTML website as well as the Angular SPA
+
+#### Angular SPA
+
+The Angular page is built using Angular(duh) and Bootsrap. The application contains a login screen that verifies users with JWTs. Once the user is logged in and verified, you are able to add, edit, and delete trips in the database. There is no currently no way to create an account as this applications purpose is for company administrators to modify information in the database. However, there is a route for registering a user and you are able to send requests to that route to create a user.
+
+## How to Install and Run
+
+1. Fork the Repo and clone into a local repository
+2. Navigate to the base project directory and install dependencies
+
+```Bash
+npm install --save
+```
+
+3. Create the environment variables
+   .._ In the top level directory make a new file `.env`
+   .._ The only required enviroment variable is the secret for JWT authentication `JWT_SECRET`
+   ..\* You can make the secret whatever you want, for example: `JWT_SECRET=superdupersecret`
+4. You can now run the static website and the api using `npm start` or `npm run nodemon`. Nodemon will watch for changes and automatically restart the server if there is a change.
+   ..\* NOTE: This project is configured to use a local MongoDB instance, if you want to use a remote MongoDB instance the URI is located in ./app_api/models/db.js
+
+5. Navigate to the app_admin directory
+6. Install the dependencies for the Angular website by running:
+
+```Bash
+npm install --save
+```
+
+7. Run the command `ng serve` to start the server
+
+The static website and API are available at localhost:3000
+The Angular website is available at localhost:4200
